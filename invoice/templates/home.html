@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <div class="m-3">
+      <h1 class="title"> Hi {{ user.username }} ! </h1>
+      <!-- <a class="btn btn-primary" href="{% url 'logout' %}">Log Out</a> -->
+      
+      <h3 class="title">List PDF</h3>
+
+      <p>
+        <a href="{% url 'upload' %}" class="btn btn-primary"> Upload PDF </a>
+      </p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Content</th>
+                <th>Location</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pdf in pdfs %}
+            <tr>
+                <td>{{ pdf.title }}</td>
+                <td>{{ pdf.content }}</td>
+                <td>
+                  <a href="{{ pdf.pdf }}" class="btn btn-primary btn-sm" target="_blank">Download PDF</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+        
+
+    </div>
+
+    {% else %}
+    <div class="m-3">
+      <h3>You are not logged in !!!!!</h3>
+      <!-- <a class="btn btn-primary" href="{% url 'login' %}">Log In</a> -->
+    </div>
+  {% endif %}
+{% endblock %}
